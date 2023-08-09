@@ -388,14 +388,14 @@ def main(args) :
 
 
         start = time.time()
-        print('Procesing {}/{} ...'.format(Mcount, total), flush = True)
+        print('Procesing {}/{} ...'.format(Mcount+len(inp['inp']), total), flush = True)
         if not args.no_multigpu :
             with strategy.scope() :
                 result, score = predict(spec, charge_, pepmass, transformer, GLOBAL_BATCH_SIZE)
         else :
             result, score = predict(spec, charge_, pepmass, transformer, BATCH_SIZE)
         end += (time.time()-start)
-        print('Procesing {}/{} ... ({:.4f} Sec)'.format(Mcount, total, end), flush = True)
+        print('Procesing {}/{} ... ({:.4f} Sec)'.format(Mcount+len(inp['inp']), total, end), flush = True)
         
         print('Writing Results ...', end='', flush = True)
         for idx in range(len(spec)) :
