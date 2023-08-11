@@ -1,13 +1,12 @@
-# NovoB
-A Bidirectional De Novo Peptide Sequencing Using Transformer Model
+# NovoB: A Bidirectional De Novo Peptide Sequencing Using Transformer Model
 
-We recommand conda environment for runing NovoB.
-NovoB requires
+We recommand conda environment for runing NovoB.<p>
+NovoB requires :
   - python
   - tensorflow (tensorflow-gpu for using GPUs) & keras
   - pyteomics
 
-Our environment (on Linux CentOS 7.9)
+Our environment (on Linux CentOS 7.9) :
   - python = 3.10
   - tensorflow-gpu = 2.10 (for using GPUs)
   - keras = 2.10
@@ -17,8 +16,9 @@ For setting environment (on Linux CentOS 7.9) :
   - conda env create -f environment.yaml
   - conda activate NovoB
 
+***
 
-Learn Model
+### Learn Model
 ```
 python Learning.py -h
 
@@ -52,7 +52,9 @@ Example)
 python Learning.py -m NovoBInit -l MGF/yeast.10k.mgf -v MGF/yeast.10k.mgf
 ```
 
-Load Model and Weights to predict peptides
+***
+
+### Load Model and Weights to predict peptides
 ```
 python Prediction.py -h
 
