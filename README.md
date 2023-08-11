@@ -1,18 +1,18 @@
 # NovoB: A Bidirectional De Novo Peptide Sequencing Using Transformer Model
 
 We recommand conda environment for runing NovoB.<p>
-NovoB requires :
+- NovoB requires :
   - python
   - tensorflow (tensorflow-gpu for using GPUs) & keras
   - pyteomics
 
-Our environment (on Linux CentOS 7.9) :
+- Our environment (on Linux CentOS 7.9) :
   - python = 3.10
   - tensorflow-gpu = 2.10 (for using GPUs)
   - keras = 2.10
   - pyteomics
 
-For setting environment (on Linux CentOS 7.9) :
+- For setting our environment (on Linux CentOS 7.9) :
   - conda env create -f environment.yaml
   - conda activate NovoB
 
@@ -44,13 +44,21 @@ options:
   -n, --no_nccl         Do not use nccl (when using multigpu)
 ```
 
-Example)
-- NovoB Model: NovoBInit (do not learn weights)
-- Learning Spectra : MGF/yeast.10k.mgf
-- Validation Specra : MGF/yeast.10k.mgf
+- Example)
+  - NovoB Model: NovoBInit (do not learn weights)
+  - Learning Spectra : MGF/yeast.10k.mgf
+  - Validation Specra : MGF/yeast.10k.mgf
+  - Output: Model ("model" folder)
 ```
 python Learning.py -m NovoBInit -l MGF/yeast.10k.mgf -v MGF/yeast.10k.mgf
 ```
+
+- If you want to save only weights, use --save_weigths option as follows.
+  - Output: Weights (weights file in "model" folder)
+```
+python Learning.py -m NovoBInit --save_weights model/weights -l MGF/yeast.10k.mgf -v MGF/yeast.10k.mgf
+```
+
 
 ***
 
@@ -76,10 +84,16 @@ options:
   -n, --no_nccl         Do not use nccl (when using multigpu)
 ```
 
-Example)
-- NovoB Model: NovoBInit (do not learn weights)
-- Learned weights : Weights/yeast/variables
-- Sample specra : MGF/yeast.10k.mgf
+- Example)
+  - NovoB Model: NovoBInit (do not learn weights)
+  - Learned weights : variables in "Weights/yeast" folder
+  - Sample specra : MGF/yeast.10k.mgf
 ```
 python Prediction.py -m NovoBInit/ --load_weights Weights/yeast/variables -i MGF/yeast.10k.mgf
 ```
+
+- If you want to use learned model, don't use --load_weights option as follows.
+  - NovoB Model : NovoBInit (including learned weights)
+'''
+python Prediction.py -m NovoBInit/ -i MGF/yeast.10k.mgf
+'''
