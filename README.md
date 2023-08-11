@@ -19,7 +19,8 @@ For setting environment (on Linux CentOS 7.9) :
 
 
 Learn Model
-- python Learning.py -h
+```
+python Learning.py -h
 
 usage: Learning.py [-h] -m MODEL_PATH [--save_model SAVE_MODEL] [--save_weights SAVE_WEIGHTS] -l LEARNING_FILE.mgf -v VALIDATION_FILE.mgf [-b BATCH_SIZE] [-e EPOCHS] [-g]
                    [-n]
@@ -41,16 +42,19 @@ options:
                         the number of epochs, default=30
   -g, --no_multigpu     Do not use multigpu
   -n, --no_nccl         Do not use nccl (when using multigpu)
+```
 
-example)
+Example)
 - NovoB Model: NovoBInit (do not learn weights)
 - Learning Spectra : MGF/yeast.10k.mgf
 - Validation Specra : MGF/yeast.10k.mgf
+```
 python Learning.py -m NovoBInit -l MGF/yeast.10k.mgf -v MGF/yeast.10k.mgf
-
+```
 
 Load Model and Weights to predict peptides
-- python Prediction.py -h
+```
+python Prediction.py -h
 
 usage: Prediction.py [-h] -m MODEL_PATH [--load_weights LOAD_WEIGHTS] -i SPECTRUM_FILE [-o OUTPUT_FILE] [-b BATCH_SIZE] [-g] [-n]
 
@@ -68,10 +72,12 @@ options:
                         Batch size to predict peptides (on single GPU), default=256
   -g, --no_multigpu     Do not use multigpu
   -n, --no_nccl         Do not use nccl (when using multigpu)
+```
 
-example)
+Example)
 - NovoB Model: NovoBInit (do not learn weights)
 - Learned weights : Weights/yeast/variables
 - Sample specra : MGF/yeast.10k.mgf
-
+```
 python Prediction.py -m NovoBInit/ --load_weights Weights/yeast/variables -i MGF/yeast.10k.mgf
+```
