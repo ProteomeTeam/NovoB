@@ -18,7 +18,21 @@ We recommand conda environment for runing NovoB.<p>
 
 ***
 
+##### Initail Model
+- NovoBInit
+  - The model of NovoB which does not learn weights.
+##### leaned Weights
+- Weights/yeast/variables
+- Weights/ricebean/variables
+##### Sample Spectra 
+- MGF/yeast.10k.mgf
+- MGF/ricebean.10k.mgf
+
+***
+
 ### Learn Model
+For learning model, use Learning.py
+
 ```
 python Learning.py -h
 
@@ -63,6 +77,8 @@ python Learning.py -m NovoBInit --save_weights model/weights -l MGF/yeast.10k.mg
 ***
 
 ### Load Model and Weights to predict peptides
+For predict peptide, use Prediction.py
+
 ```
 python Prediction.py -h
 
@@ -94,6 +110,6 @@ python Prediction.py -m NovoBInit/ --load_weights Weights/yeast/variables -i MGF
 
 - If you want to use learned model, don't use --load_weights option as follows.
   - NovoB Model : NovoBInit (including learned weights)
-'''
+```
 python Prediction.py -m NovoBInit/ -i MGF/yeast.10k.mgf
-'''
+```
