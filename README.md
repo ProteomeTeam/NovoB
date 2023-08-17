@@ -109,7 +109,7 @@ python Prediction.py -m NovoBInit/ --load_weights Weights/yeast/variables -i MGF
 ```
 
 - If you want to use learned model, don't use --load_weights option as follows.
-  - NovoB Model : NovoBInit (including learned weights)
+  - NovoB Model : NovoBInit (If it includes learned weights)
 ```
 python Prediction.py -m NovoBInit/ -i MGF/yeast.10k.mgf
 ```
