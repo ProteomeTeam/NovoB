@@ -1,5 +1,3 @@
 Weights/ filter=lfs diff=lfs merge=lfs -text
 Weights/ricebean/variables.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
 Weights/yeast/variables.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
-LearnedModel/ filter=lfs diff=lfs merge=lfs -text
-LearnedModel/bacillus/variables/variables.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
