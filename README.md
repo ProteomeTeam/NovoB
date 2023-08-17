@@ -16,6 +16,8 @@ We recommand conda environment for runing NovoB.<p>
   - conda env create -f environment.yaml
   - conda activate NovoB
 
+- If you use tensorflow < 2.10, we recoomand --save_weights (Learning.py) and --load_weights (Prediction.py).
+
 ***
 
 ##### Initail Model
