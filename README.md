@@ -16,19 +16,23 @@ We recommand conda environment for runing NovoB.<p>
   - conda env create -f environment.yaml
   - conda activate NovoB
 
-- If you use tensorflow < 2.10, we recoomand --save_weights (Learning.py) and --load_weights (Prediction.py).
+- If you use tensorflow < 2.10, we recommand to use --save_weights (Learning.py) and --load_weights (Prediction.py).
 
 ***
 
 ##### Initail Model
 - NovoBInit
   - The model of NovoB which does not learn weights.
+##### Learned Model
+- LearnedModel/bacillus
+  - The model of NovoB which learns weights.
 ##### leaned Weights
 - Weights/yeast/variables
 - Weights/ricebean/variables
 ##### Sample Spectra 
 - MGF/yeast.10k.mgf
 - MGF/ricebean.10k.mgf
+- MGF/bacillus.10k.mgf
 
 ***
 
@@ -110,8 +114,17 @@ options:
 python Prediction.py -m NovoBInit/ --load_weights Weights/yeast/variables -i MGF/yeast.10k.mgf
 ```
 
-- If you want to use learned model, don't use --load_weights option as follows.
-  - NovoB Model : NovoBInit (If it includes learned weights)
+- Example)
+  - NovoB Model: NovoBInit (do not learn weights)
+  - Learned weights : variables in "Weights/ricebean" folder
+  - Sample specra : MGF/ricebean.10k.mgf
 ```
-python Prediction.py -m NovoBInit/ -i MGF/yeast.10k.mgf
+python Prediction.py -m NovoBInit/ --load_weights Weights/ricebean/variables -i MGF/ricebean.10k.mgf
+```
+
+- If you want to use learned model, don't use --load_weights option as follows.
+  - NovoB Model : LearnedModel/bacillus
+  - Recommand to use tensorflow >= 2.10
+```
+python Prediction.py -m LearnedModel/bacillus/ -i MGF/bacillus.10k.mgf
 ```
