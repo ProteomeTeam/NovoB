@@ -26,8 +26,10 @@ We recommand conda environment for runing NovoB.<p>
 ##### Learned Model
 - LearnedModel/ricebean
   - The model of NovoB which learns weights.
+  - We used git-lfs to upload files (>100M). So, use "git lfs pull" after "git clone"
 ##### leaned Weights
 - Weights/yeast/variables
+- We used git-lfs to upload files (>100M). So, use "git lfs pull" after "git clone"
 ##### Sample Spectra 
 - MGF/yeast.10k.mgf
 - MGF/ricebean.10k.mgf
