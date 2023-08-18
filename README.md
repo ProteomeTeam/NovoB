@@ -1,4 +1,4 @@
-# NovoB: A Bidirectional De Novo Peptide Sequencing Using Transformer Model
+# NovoB: Bidirectional De Novo Peptide Sequencing Using a Transformer Model
 
 We recommand conda environment for runing NovoB.<p>
 - NovoB requires :
