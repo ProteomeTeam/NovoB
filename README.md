@@ -24,15 +24,13 @@ We recommand conda environment for runing NovoB.<p>
 - NovoBInit
   - The model of NovoB which does not learn weights.
 ##### Learned Model
-- LearnedModel/bacillus
+- LearnedModel/ricebean
   - The model of NovoB which learns weights.
 ##### leaned Weights
 - Weights/yeast/variables
-- Weights/ricebean/variables
 ##### Sample Spectra 
 - MGF/yeast.10k.mgf
 - MGF/ricebean.10k.mgf
-- MGF/bacillus.10k.mgf
 
 ***
 
