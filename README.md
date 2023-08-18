@@ -114,17 +114,9 @@ options:
 python Prediction.py -m NovoBInit/ --load_weights Weights/yeast/variables -i MGF/yeast.10k.mgf
 ```
 
-- Example)
-  - NovoB Model: NovoBInit (do not learn weights)
-  - Learned weights : variables in "Weights/ricebean" folder
-  - Sample specra : MGF/ricebean.10k.mgf
-```
-python Prediction.py -m NovoBInit/ --load_weights Weights/ricebean/variables -i MGF/ricebean.10k.mgf
-```
-
 - If you want to use learned model, don't use --load_weights option as follows.
-  - NovoB Model : LearnedModel/bacillus
+  - NovoB Model : LearnedModel/ricebean
   - Recommand to use tensorflow >= 2.10
 ```
-python Prediction.py -m LearnedModel/bacillus/ -i MGF/bacillus.10k.mgf
+python Prediction.py -m LearnedModel/ricebean/ -i MGF/ricebean.10k.mgf
 ```
