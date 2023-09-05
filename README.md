@@ -85,7 +85,7 @@ python Learning.py -m NovoBInit --save_weights model/weights -l MGF/yeast.10k.mg
 
 ### Load Model and Weights to predict peptides
 For predict peptide, use Prediction.py
-This will write peptide predictions for the given spectra to the specified output file (separator: tab)
+- This will write peptide predictions for the given spectra to the specified output file (separator: tab)
 - index/charge/pepmass/ForwardSeq/deltamass(F)/probability(F)/ReverseSeq/deltamass(R)/probability(R)
 
 ```
