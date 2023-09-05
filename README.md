@@ -33,6 +33,7 @@ We recommand conda environment for runing NovoB.<p>
 ##### Sample Spectra 
 - MGF/yeast.10k.mgf
 - MGF/ricebean.10k.mgf
+- Training and validation data need to be provided as annotated MGF files, where the peptide sequence is denoted in the SEQ field.
 
 ***
 
@@ -84,6 +85,8 @@ python Learning.py -m NovoBInit --save_weights model/weights -l MGF/yeast.10k.mg
 
 ### Load Model and Weights to predict peptides
 For predict peptide, use Prediction.py
+This will write peptide predictions for the given spectra to the specified output file (separator: tab)
+- index/charge/pepmass/ForwardSeq/deltamass(F)/probability(F)/ReverseSeq/deltamass(R)/probability(R)
 
 ```
 python Prediction.py -h
