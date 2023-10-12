@@ -35,6 +35,9 @@ We recommand conda environment for runing NovoB.<p>
 - MGF/ricebean.10k.mgf
 - Training and validation data need to be provided as annotated MGF files, where the peptide sequence is denoted in the SEQ field.
 
+##### Other Data, Model & Parameter
+- https://drive.google.com/drive/folders/1O2lKUG-1rwNw0cDLAlGdP2ZsTTOAohnt?usp=sharing
+
 ***
 
 ### Learn Model
