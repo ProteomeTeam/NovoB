@@ -116,12 +116,12 @@ options:
   - Learned weights : variables in "TrainedModel/usingCasanovoDataSet/yeast/" folder (need to download <a href="https://doi.org/10.5281/zenodo.10258874"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10258874.svg" alt="DOI"></a>)
   - Sample specra : MGF/yeast.10k.mgf
 ```
-python Prediction.py -m NovoBInit/ --load_weights NovoB_Dataset/TrainedModel/usingCasanovoDataSet/yeast/variables -i MGF/yeast.10k.mgf
+python Prediction.py -m NovoBInit/ --load_weights NovoB_DataSet/TrainedModel/usingCasanovoDataSet/yeast/variables -i MGF/yeast.10k.mgf
 ```
 
 - If you want to use learned model, don't use --load_weights option as follows.
   - NovoB Model : TrainedModel/ricebean (need to download <a href="https://doi.org/10.5281/zenodo.10258874"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10258874.svg" alt="DOI"></a>)
   - Recommand to use tensorflow >= 2.10
 ```
-python Prediction.py -m NovoB_Dataset/TrainedModel/ricebean/ -i MGF/ricebean.10k.mgf
+python Prediction.py -m NovoB_DataSet/TrainedModel/ricebean/ -i MGF/ricebean.10k.mgf
 ```
