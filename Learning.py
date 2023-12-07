@@ -121,7 +121,7 @@ def spec_data_generator(train_file) :
         #start
         peaklist.append([0, 0])
         
-        peak_int = int(float(B_ION_OFFSE)*RESOLUTION)
+        peak_int = int(float(B_ION_OFFSET)*RESOLUTION)
         peaklist.append([peak_int, 101])
         
         peak_int = int(float(Y_ION_OFFSET)*RESOLUTION)
