@@ -116,7 +116,7 @@ options:
   - Learned weights : variables in "TrainedModel/usingCasanovoDataSet/yeast/" folder (need to download <a href="https://doi.org/10.5281/zenodo.10258874"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10258874.svg" alt="DOI"></a>)
   - Sample specra : MGF/yeast.10k.mgf
 ```
-python Prediction.py -m NovoBInit/ --load_weights NovoB_DataSet/TrainedModel/usingCasanovoDataSet/yeast/variables -i MGF/yeast.10k.mgf
+python Prediction.py -m NovoBInit/ --load_weights NovoB_DataSet/TrainedModel/usingCasanovoDataSet/yeast/variables/variables -i MGF/yeast.10k.mgf
 ```
 
 - If you want to use learned model, don't use --load_weights option as follows.
