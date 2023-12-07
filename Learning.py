@@ -56,7 +56,7 @@ def preprocess(sequences, pmass):
     tm_input = []
     
     mass_int = int(pmass*RESOLUTION)
-    tm_input.append([1, mass_int, mass_float, 1, mass_int, mass_float])
+    tm_input.append([1, mass_int, 1, mass_int])
     for char in t_input :
         for f, r in zip(char, reversed(char)) :
             tmp = []
