@@ -23,20 +23,19 @@ We recommand conda environment for runing NovoB.<p>
 ##### Initail Model
 - NovoBInit
   - The model of NovoB which does not learn weights.
-##### Learned Model
-- LearnedModel/ricebean
+##### trained Model
+- TrainedModel
   - The model of NovoB which learns weights.
-  - We used git-lfs to upload files (>100M). So, use "git lfs pull" after "git clone"
+  - Download : https://doi.org/10.5281/zenodo.10258874 <a href="https://doi.org/10.5281/zenodo.10258874"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10258874.svg" alt="DOI"></a>
 ##### leaned Weights
-- Weights/yeast/variables
-  - We used git-lfs to upload files (>100M). So, use "git lfs pull" after "git clone"
+- TrainedModel/<Dataset>/<ModelName>/variable
+  - ex) TrainedModel/usingCasanovoDataSet/yeast/variables
+  - Download : https://doi.org/10.5281/zenodo.10258874 <a href="https://doi.org/10.5281/zenodo.10258874"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10258874.svg" alt="DOI"></a>
 ##### Sample Spectra 
 - MGF/yeast.10k.mgf
 - MGF/ricebean.10k.mgf
 - Training and validation data need to be provided as annotated MGF files, where the peptide sequence is denoted in the SEQ field.
-
-##### Other Data, Model & Parameter
-- https://drive.google.com/drive/folders/1O2lKUG-1rwNw0cDLAlGdP2ZsTTOAohnt?usp=sharing
+- Entire Datasets Download : https://doi.org/10.5281/zenodo.10258874 <a href="https://doi.org/10.5281/zenodo.10258874"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10258874.svg" alt="DOI"></a>
 
 ***
 
@@ -114,15 +113,15 @@ options:
 
 - Example)
   - NovoB Model: NovoBInit (do not learn weights)
-  - Learned weights : variables in "Weights/yeast" folder
+  - Learned weights : variables in "TrainedModel/usingCasanovoDataSet/yeast/" folder (need to download <a href="https://doi.org/10.5281/zenodo.10258874"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10258874.svg" alt="DOI"></a>)
   - Sample specra : MGF/yeast.10k.mgf
 ```
-python Prediction.py -m NovoBInit/ --load_weights Weights/yeast/variables -i MGF/yeast.10k.mgf
+python Prediction.py -m NovoBInit/ --load_weights NovoB_Dataset/TrainedModel/usingCasanovoDataSet/yeast/variables -i MGF/yeast.10k.mgf
 ```
 
 - If you want to use learned model, don't use --load_weights option as follows.
-  - NovoB Model : LearnedModel/ricebean
+  - NovoB Model : TrainedModel/ricebean (need to download <a href="https://doi.org/10.5281/zenodo.10258874"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10258874.svg" alt="DOI"></a>)
   - Recommand to use tensorflow >= 2.10
 ```
-python Prediction.py -m LearnedModel/ricebean/ -i MGF/ricebean.10k.mgf
+python Prediction.py -m NovoB_Dataset/TrainedModel/ricebean/ -i MGF/ricebean.10k.mgf
 ```
