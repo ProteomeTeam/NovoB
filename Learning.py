@@ -55,58 +55,39 @@ def preprocess(sequences, pmass):
     r_mass = 0.0
     tm_input = []
     
-    mass_int = int(pmass)
-    mass_float = int(float(pmass-mass_int)*RESOLUTION)
+    mass_int = int(pmass*RESOLUTION)
     tm_input.append([1, mass_int, mass_float, 1, mass_int, mass_float])
     for char in t_input :
         for f, r in zip(char, reversed(char)) :
             tmp = []
             mass += idx2mass.get(amino2idx.get(f))
             remass = pmass - mass
-            if remass < 0. :
-                mass_int = int(remass) - 1
-            else:
-                mass_int = int(remass)
-            mass_float = int(float(remass-mass_int)*RESOLUTION)
+            mass_int = int(remass*RESOLUTION)
                 
             tmp.append(amino2idx.get(f))
             tmp.append(mass_int)
-            tmp.append(mass_float)
     
             r_mass += idx2mass.get(amino2idx.get(r))
             remass = pmass - r_mass
-            if remass < 0. :
-                mass_int = int(remass) - 1
-            else:
-                mass_int = int(remass)
-            mass_float = int(float(remass-mass_int)*RESOLUTION)
+            mass_int = int(remass*RESOLUTION)
+          
             tmp.append(amino2idx.get(r))
             tmp.append(mass_int)
-            tmp.append(mass_float)
     
             tm_input.append(tmp)  
     
     remass = pmass - mass
-    if remass < 0. :
-        mass_int = int(remass) - 1
-    else:
-        mass_int = int(remass)
-    mass_float = int(float(remass-mass_int)*RESOLUTION)
+    mass_int = int(remass*RESOLUTION)
+  
     tmp = []
     tmp.append(2)
     tmp.append(mass_int)
-    tmp.append(mass_float)
     
     remass = pmass - r_mass
-    if remass < 0. :
-        mass_int = int(remass) - 1
-        mass_float = int(float(remass*RESOLUTION) - mass_int*RESOLUTION)
-    else:
-        mass_int = int(remass)
-        mass_float = int(float(remass*RESOLUTION) - mass_int*RESOLUTION)
+    mass_int = int(remass*RESOLUTION)
+  
     tmp.append(2)
     tmp.append(mass_int)
-    tmp.append(mass_float)
     
     tm_input.append(tmp)
     return tm_input
@@ -134,20 +115,17 @@ def spec_data_generator(train_file) :
         bion = round(bion, 3)
         yion = round(yion, 3)
 
-        pmass_int = int(float(pmass))
-        pmass_float = int(float(pmass-pmass_int)*RESOLUTION)
-        peaklist.append([pmass_int, pmass_float, charge])
+        pmass_int = int(float(pmass)*RESOLUTION)
+        peaklist.append([pmass_int, charge])
         
         #start
-        peaklist.append([0, 0, 0])
+        peaklist.append([0, 0])
         
-        peak_int = int(B_ION_OFFSET)
-        peak_float = int(float(B_ION_OFFSET-peak_int)*RESOLUTION)
-        peaklist.append([peak_int, peak_float, 101])
+        peak_int = int(float(B_ION_OFFSE)*RESOLUTION)
+        peaklist.append([peak_int, 101])
         
-        peak_int = int(Y_ION_OFFSET)
-        peak_float = int(float(Y_ION_OFFSET-peak_int)*RESOLUTION)
-        peaklist.append([peak_int, peak_float, 102])
+        peak_int = int(float(Y_ION_OFFSET)*RESOLUTION)
+        peaklist.append([peak_int, 102])
         
         maxInten = 0.0
         for i in range(len(inten)) :
@@ -157,17 +135,14 @@ def spec_data_generator(train_file) :
         for i in range(len(mz)) :
             if mz[i] > pmass :
                 continue
-            peak_int = int(mz[i])
-            peak_float = int(float(mz[i]-peak_int)*RESOLUTION)
-            peaklist.append([peak_int, peak_float, int(inten[i]/maxInten*100)])
+            peak_int = int(float(mz[i])*RESOLUTION)
+            peaklist.append([peak_int, int(inten[i]/maxInten*100)])
         
-        peak_int = int(bion)
-        peak_float = int(float(bion-peak_int)*RESOLUTION)
-        peaklist.append([peak_int, peak_float, 101])
+        peak_int = int(float(bion)*RESOLUTION)
+        peaklist.append([peak_int, 101])
         
-        peak_int = int(yion)
-        peak_float = int(float(yion-peak_int)*RESOLUTION)
-        peaklist.append([peak_int, peak_float, 102])
+        peak_int = int(float(yion)*RESOLUTION)
+        peaklist.append([peak_int, 102])
         
         
         pept = []
@@ -176,14 +151,14 @@ def spec_data_generator(train_file) :
         pept.append(peptide)
 
         pept = preprocess(pept, pmass)
-        pept = np.reshape(pept, (-1, 6))
+        pept = np.reshape(pept, (-1, 4))
         
         pept_tar = pept[:-1, :]
         
         real = pept[:, :1]
         real1 = real[1:, :]
         real1 = np.squeeze(real1)
-        real = pept[:, 3:4]
+        real = pept[:, 2:3]
         real2 = real[1:, :]
         real2 = np.squeeze(real2)
         
@@ -192,8 +167,8 @@ def spec_data_generator(train_file) :
 
 
 def tf_encode(pt1, pt2, en1, en2):
-    pt1.set_shape([None, 3])
-    pt2.set_shape([None, 6])
+    pt1.set_shape([None, 2])
+    pt2.set_shape([None, 4])
     
     en1.set_shape([None])
     en2.set_shape([None])
@@ -225,20 +200,17 @@ def test_data_generator(test_file) :
         bion = round(bion, 3)
         yion = round(yion, 3)
         
-        pmass_int = int(float(pmass))
-        pmass_float = int(float(pmass-pmass_int)*RESOLUTION)
-        peaklist.append([pmass_int, pmass_float, charge])
+        pmass_int = int(float(pmass)*RESOLUTION)
+        peaklist.append([pmass_int, charge])
         
         #start
-        peaklist.append([0, 0, 0])
+        peaklist.append([0, 0])
         
-        peak_int = int(B_ION_OFFSET)
-        peak_float = int(float(B_ION_OFFSET-peak_int)*RESOLUTION)
-        peaklist.append([peak_int, peak_float, 101])
+        peak_int = int(float(B_ION_OFFSET)*RESOLUTION)
+        peaklist.append([peak_int, 101])
         
-        peak_int = int(Y_ION_OFFSET)
-        peak_float = int(float(Y_ION_OFFSET-peak_int)*RESOLUTION)
-        peaklist.append([peak_int, peak_float, 102]) 
+        peak_int = int(float(Y_ION_OFFSET)*RESOLUTION)
+        peaklist.append([peak_int, 102]) 
         
         maxInten = 0.0
         for i in range(len(inten)) :
@@ -248,18 +220,15 @@ def test_data_generator(test_file) :
         for i in range(len(mz)) :
             if mz[i] > pmass :
                 continue
-            peak_int = int(mz[i])
-            peak_float = int(float(mz[i]-peak_int)*RESOLUTION)
-            peaklist.append([peak_int, peak_float, int(inten[i]/maxInten*100)])
+            peak_int = int(float(mz[i])*RESOLUTION)
+            peaklist.append([peak_int, int(inten[i]/maxInten*100)])
 
         
-        peak_int = int(bion)
-        peak_float = int(float(bion-peak_int)*RESOLUTION)
-        peaklist.append([peak_int, peak_float, 101])
+        peak_int = int(float(bion)*RESOLUTION)
+        peaklist.append([peak_int, 101])
         
-        peak_int = int(yion)
-        peak_float = int(float(yion-peak_int)*RESOLUTION)
-        peaklist.append([peak_int, peak_float, 102])
+        peak_int = int(float(yion)*RESOLUTION)
+        peaklist.append([peak_int, 102])
         
         
         pept = []
@@ -268,14 +237,14 @@ def test_data_generator(test_file) :
         pept.append(peptide)
 
         pept = preprocess(pept, pmass)
-        pept = np.reshape(pept, (-1, 6))
+        pept = np.reshape(pept, (-1, 4))
         
         pept_tar = pept[:-1, :]
         
         real = pept[:, :1]
         real1 = real[1:, :]
         real1 = np.squeeze(real1)
-        real = pept[:, 3:4]
+        real = pept[:, 2:3]
         real2 = real[1:, :]
         real2 = np.squeeze(real2)
         
@@ -344,7 +313,7 @@ def main(args) :
 
     spec_data = tf.data.Dataset.from_generator(
                 spec_data_generator, output_types=(tf.int64, tf.int64, tf.int64, tf.int64), 
-                output_shapes =( (None, 3), (None, 6), (None), (None) ),
+                output_shapes =( (None, 2), (None, 4), (None), (None) ),
                 args=([args.learning_file]) )
     train_data = spec_data.map(tf_encode)
     train_data = train_data.filter(filter_max_length)
@@ -358,7 +327,7 @@ def main(args) :
 
     spec_data = tf.data.Dataset.from_generator(
                 test_data_generator, output_types=(tf.int64, tf.int64, tf.int64, tf.int64),
-                output_shapes =( (None, 3), (None, 6), (None), (None) ),
+                output_shapes =( (None, 2), (None, 4), (None), (None) ),
                 args=([args.validation_file]) )
     test_data = spec_data.map(tf_encode)
     test_data = test_data.filter(filter_max_length)
