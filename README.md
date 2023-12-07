@@ -28,7 +28,7 @@ We recommand conda environment for runing NovoB.<p>
   - The model of NovoB which learns weights.
   - Download : https://doi.org/10.5281/zenodo.10258874 <a href="https://doi.org/10.5281/zenodo.10258874"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10258874.svg" alt="DOI"></a>
 ##### leaned Weights
-- TrainedModel/<Dataset>/<ModelName>/variable
+- TrainedModel/\<Dataset\>/\<ModelName\>/variable
   - ex) TrainedModel/usingCasanovoDataSet/yeast/variables
   - Download : https://doi.org/10.5281/zenodo.10258874 <a href="https://doi.org/10.5281/zenodo.10258874"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10258874.svg" alt="DOI"></a>
 ##### Sample Spectra 
