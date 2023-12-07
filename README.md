@@ -123,5 +123,5 @@ python Prediction.py -m NovoBInit/ --load_weights NovoB_DataSet/TrainedModel/usi
   - NovoB Model : TrainedModel/ricebean (need to download <a href="https://doi.org/10.5281/zenodo.10258874"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10258874.svg" alt="DOI"></a>)
   - Recommand to use tensorflow >= 2.10
 ```
-python Prediction.py -m NovoB_DataSet/TrainedModel/ricebean/ -i MGF/ricebean.10k.mgf
+python Prediction.py -m NovoB_DataSet/TrainedModel/usingCasanovoDataSet/ricebean/ -i MGF/ricebean.10k.mgf
 ```
