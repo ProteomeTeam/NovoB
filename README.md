@@ -23,7 +23,7 @@ We recommand conda environment for runing NovoB.<p>
 ##### Initail Model
 - NovoBInit
   - The model of NovoB which does not learn weights.
-##### trained Model
+##### Trained Model
 - TrainedModel
   - The model of NovoB which learns weights.
   - Download : https://doi.org/10.5281/zenodo.10258874 <a href="https://doi.org/10.5281/zenodo.10258874"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10258874.svg" alt="DOI"></a>
@@ -39,7 +39,7 @@ We recommand conda environment for runing NovoB.<p>
 
 ***
 
-### Learn Model
+### Train Model
 For learning model, use Learning.py
 
 ```
