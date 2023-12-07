@@ -50,7 +50,7 @@ idx2mass = {0: 0.00, 1: 0.00, 2: 0.00,
              23: 147.035, 24: 115.027, 25: 129.043, 26: 166.998, 27: 181.014, 28:243.030}
 
 def tf_encode(pt):
-    pt.set_shape([None, 3])
+    pt.set_shape([None, 2])
     pt = {'inp' : pt}
     return pt
 
@@ -77,20 +77,17 @@ def test_data_generator(test_file) :
         bion = round(bion, 3)
         yion = round(yion, 3)
 
-        pmass_int = int(float(pmass))
-        pmass_float = int(float(pmass)*RESOLUTION) - (pmass_int*RESOLUTION)
-        peaklist.append([pmass_int, pmass_float, charge])
+        pmass_int = int(float(pmass)*RESOLUTION)
+        peaklist.append([pmass_int, charge])
         
         #start
-        peaklist.append([0, 0, 0])
+        peaklist.append([0, 0])
         
-        peak_int = int(B_ION_OFFSET)
-        peak_float = int(float(B_ION_OFFSET)*RESOLUTION) - (peak_int*RESOLUTION)
-        peaklist.append([peak_int, peak_float, 101])
+        peak_int = int(float(B_ION_OFFSET)*RESOLUTION)
+        peaklist.append([peak_int, 101])
         
-        peak_int = int(Y_ION_OFFSET)
-        peak_float = int(float(Y_ION_OFFSET)*RESOLUTION) - (peak_int*RESOLUTION)
-        peaklist.append([peak_int, peak_float, 102])
+        peak_int = int(float(Y_ION_OFFSET)*RESOLUTION)
+        peaklist.append([peak_int, 102])
         
         maxInten = 0.0
         for i in range(len(inten)) :
@@ -100,18 +97,15 @@ def test_data_generator(test_file) :
         for i in range(len(mz)) :
             if mz[i] > pmass :
                 continue
-            peak_int = int(mz[i])
-            peak_float = int(float(mz[i])*RESOLUTION) - (peak_int*RESOLUTION)
-            peaklist.append([peak_int, peak_float, int(inten[i]/maxInten*100)])
+            peak_int = int(float(mz[i])*RESOLUTION)
+            peaklist.append([peak_int, int(inten[i]/maxInten*100)])
 
         
-        peak_int = int(bion)
-        peak_float = int(float(bion)*RESOLUTION) - (peak_int*RESOLUTION)
-        peaklist.append([peak_int, peak_float, 101])
+        peak_int = int(float(bion)*RESOLUTION)
+        peaklist.append([peak_int, 101])
         
-        peak_int = int(yion)
-        peak_float = int(float(yion)*RESOLUTION) - (peak_int*RESOLUTION)
-        peaklist.append([peak_int, peak_float, 102])
+        peak_int = int(float(yion)*RESOLUTION)
+        peaklist.append([peak_int, 102])
 
         yield peaklist
 
@@ -179,10 +173,9 @@ def predict(spec, charge_, pmass, transformer, batch):
     score.append([])
     
     for i in range(len(charge_)) : 
-        pmass_int = int(pmass[i])
-        pmass_float = int(pmass[i]*RESOLUTION) - (pmass_int*RESOLUTION)
+        pmass_int = int(pmass[i]*RESOLUTION)
     
-        decoder_input.append([[1, pmass_int, pmass_float, 1, pmass_int, pmass_float]])
+        decoder_input.append([[1, pmass_int, 1, pmass_int]])
         check[0].append(False)
         check[1].append(False)
         smass[0].append(0)
@@ -193,10 +186,6 @@ def predict(spec, charge_, pmass, transformer, batch):
     decoder_input = tf.cast(decoder_input, tf.int64)
     inp = {'inp': encoder_input, 'dec_inp': decoder_input}
     for idx in range(PEPTIDE_MAX_LENGTH):
-        #predictions0, predictions1 = transformer.predict(inp, max_queue_size=PEPTIDE_MAX_LENGTH,
-        #                                                batch_size=BATCH_SIZE, use_multiprocessing=True,
-        #                                                workers=os.cpu_count(), verbose=0)
-        #print(idx, end='')
         predictions0, predictions1 = transformer.predict(inp, batch_size=batch)
         
         predictions0 = predictions0[: ,-1:, :]  # (batch_size, 1, vocab_size)
@@ -223,15 +212,10 @@ def predict(spec, charge_, pmass, transformer, batch):
             smass[0][i] += idx2mass.get(r)
             rmass = pmass[i] - smass[0][i]
             
-            if rmass < 0. :
-                mass_int = int(rmass) - 1
-            else:
-                mass_int = int(rmass)
-            mass_float = int(float(rmass-mass_int)*RESOLUTION)
+            mass_int = int(rmass*RESOLUTION)
 
             pred.append(r)
             pred.append(mass_int)
-            pred.append(mass_float)
 
             score[0][i].append(softmax0[i][0])
             
@@ -244,15 +228,10 @@ def predict(spec, charge_, pmass, transformer, batch):
             smass[1][i] += idx2mass.get(r)
             rmass = pmass[i] - smass[1][i]
             
-            if rmass < 0. :
-                mass_int = int(rmass) - 1
-            else:
-                mass_int = int(rmass)
-            mass_float = int(float(rmass-mass_int)*RESOLUTION)
+            mass_int = int(rmass*RESOLUTION)
 
             pred.append(r)
             pred.append(mass_int)
-            pred.append(mass_float)
             
             pred_.append([pred])
             
@@ -288,13 +267,11 @@ def translate(result):
 
     mass_int = result[:, 1:2]
     mass_int = tf.squeeze(mass_int, axis=-1)
-    mass_float = result[:, 2:3]
-    mass_float = tf.squeeze(mass_float, axis=-1)
 
-    mass = float(mass_int.numpy()[length]) + float(mass_float.numpy()[length])/RESOLUTION
+    mass = float(mass_int.numpy()[length])/RESOLUTION
     
     #reverse
-    result_ = result[:, 3:4]
+    result_ = result[:, 2:3]
     result_ = tf.squeeze(result_, axis=-1)
     seq = list(result_.numpy())
     predicted_sentence = ''
@@ -312,12 +289,10 @@ def translate(result):
     length = len(senten_R)
     senten_R = "['" + senten_R[::-1] + "']"
 
-    mass_int = result[:, 4:5]
+    mass_int = result[:, 3:4]
     mass_int = tf.squeeze(mass_int, axis=-1)
-    mass_float = result[:, 5:6]
-    mass_float = tf.squeeze(mass_float, axis=-1)
 
-    mass_R = float(mass_int.numpy()[length]) + float(mass_float.numpy()[length])/RESOLUTION
+    mass_R = float(mass_int.numpy()[length])/RESOLUTION
 
     return senten, mass, senten_R, mass_R
 
@@ -334,7 +309,7 @@ def main(args) :
         options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.DATA
 
     spec_data = tf.data.Dataset.from_generator(test_data_generator, output_types=(tf.int64),
-                                               output_shapes =( (None, 3) ), args=([args.spectrum_file]) )
+                                               output_shapes =( (None, 2) ), args=([args.spectrum_file]) )
     test_data = spec_data.map(tf_encode, num_parallel_calls=tf.data.experimental.AUTOTUNE)
     test_data = test_data.filter(filter_max_length)
     test_data = test_data.cache()
@@ -379,10 +354,9 @@ def main(args) :
         charge_= []
         pepmass= []
         for i in range(len(inp['inp'])) :
-            charge_.append(inp['inp'][i][0][2].numpy())
+            charge_.append(inp['inp'][i][0][1].numpy())
             mass_int = inp['inp'][i][0][0]
-            mass_float = inp['inp'][i][0][1]
-            pepmass.append(float(mass_int.numpy()) + float(mass_float.numpy())/RESOLUTION)
+            pepmass.append(float(mass_int.numpy())/RESOLUTION)
         spec = inp['inp']
         print("{}/{} Done.".format(Mcount+len(inp['inp']), total), flush = True)
 
