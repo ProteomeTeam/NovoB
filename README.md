@@ -83,7 +83,7 @@ python Learning.py -m NovoBInit -l MGF/yeast.10k.mgf -v MGF/yeast.10k.mgf
 - If you want to save only weights, use --save_weigths option as follows.
   - Output: Weights (weights file in "model" folder)
 ```
-python Learning.py -m NovoB_DataSet/NovoBInit --save_weights model/weights -l MGF/yeast.10k.mgf -v MGF/yeast.10k.mgf
+python Learning.py -m NovoBInit --save_weights model/weights -l MGF/yeast.10k.mgf -v MGF/yeast.10k.mgf
 ```
 
 
@@ -121,7 +121,7 @@ options:
   - Learned weights : variables in "TrainedModel/usingCasanovoDataSet/yeast/variables/" folder 
   - Sample specra : MGF/yeast.10k.mgf
 ```
-python Prediction.py -m NovoB_DataSet/NovoBInit/ --load_weights NovoB_DataSet/TrainedModel/usingCasanovoDataSet/yeast/variables/variables -i MGF/yeast.10k.mgf
+python Prediction.py -m NovoBInit/ --load_weights TrainedModel/usingCasanovoDataSet/yeast/variables/variables -i MGF/yeast.10k.mgf
 ```
 
 - If you want to use learned model, don't use --load_weights option as follows.
@@ -129,5 +129,5 @@ python Prediction.py -m NovoB_DataSet/NovoBInit/ --load_weights NovoB_DataSet/Tr
   - NovoB Model : TrainedModel/ricebean
   - Recommand to use tensorflow >= 2.10
 ```
-python Prediction.py -m NovoB_DataSet/TrainedModel/usingCasanovoDataSet/ricebean/ -i MGF/ricebean.10k.mgf
+python Prediction.py -m TrainedModel/usingCasanovoDataSet/ricebean/ -i MGF/ricebean.10k.mgf
 ```
