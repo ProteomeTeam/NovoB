@@ -18,6 +18,8 @@ We recommand conda environment for runing NovoB.<p>
 
 - If you use tensorflow < 2.10, we recommand to use --save_weights (Learning.py) and --load_weights (Prediction.py).
 
+- Ref: https://doi.org/10.1371/journal.pcbi.1011892
+
 ***
 
 ##### Data Download
@@ -39,7 +41,8 @@ We recommand conda environment for runing NovoB.<p>
 - MGF/yeast.10k.mgf
 - MGF/ricebean.10k.mgf
 - Training and validation data need to be provided as annotated MGF files, where the peptide sequence is denoted in the SEQ field.
-
+- In the SEQ field, PTMs("C(+57.02)", "M(+15.99)", "N(+.98)", and "Q(+.98)") are replaced by "C", "m", "n", and "q", respectively.
+  
 ***
 
 ### Train Model
