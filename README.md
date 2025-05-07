@@ -1,4 +1,8 @@
-# NovoB: Bidirectional De Novo Peptide Sequencing Using a Transformer Model
+# NovoB, trained on MassiveKB, is coming back soon.
+
+# 
+
+## NovoB: Bidirectional De Novo Peptide Sequencing Using a Transformer Model
 
 We recommand conda environment for runing NovoB.<p>
 - NovoB requires :
