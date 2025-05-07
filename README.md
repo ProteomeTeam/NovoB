@@ -1,5 +1,5 @@
-# NovoB, trained on MassiveKB, is coming back soon.
-
+# NovoB is coming back soon.
+It's trained on the Massive-KB dataset used by Casanovo (https://zenodo.org/records/14967861).
 # 
 
 ## NovoB: Bidirectional De Novo Peptide Sequencing Using a Transformer Model
